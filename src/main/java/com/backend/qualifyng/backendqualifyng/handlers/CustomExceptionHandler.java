@@ -16,13 +16,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class CustomExceptionHandler {
 
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<ErrorResponse> constraintViolationException(HttpServletResponse response) throws IOException {
-        return new ResponseEntity<ErrorResponse>(getErrorResponse(), HttpStatus.BAD_REQUEST);
 
-    }
-
-    @ExceptionHandler(MissingServletRequestParameterException.class)
+    @ExceptionHandler({ConstraintViolationException.class, MissingServletRequestParameterException.class})
     public ResponseEntity<ErrorResponse> badRequestViolationException(HttpServletResponse response) throws IOException {
         return new ResponseEntity<ErrorResponse>(getErrorResponse(), HttpStatus.BAD_REQUEST);
 
