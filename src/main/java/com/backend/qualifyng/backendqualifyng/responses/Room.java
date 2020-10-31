@@ -19,9 +19,8 @@ import lombok.Setter;
 @JsonInclude(Include.NON_NULL)
 public class Room {
 
-    private Integer id;
-    private Category category;
-    private Integer totalPrice;
-    private PriceDetail priceDetail;
+    private Integer roomID;
+    private String categoryName;
+    private PriceDetail price;
 
 }

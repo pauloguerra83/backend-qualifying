@@ -1,8 +1,6 @@
 package com.backend.qualifyng.backendqualifyng.responses;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -24,8 +22,9 @@ import lombok.Setter;
 public class Hotel {
 
     private Integer id;
-    private String city;
     private String name;
+    private String cityCode;
+    private String cityName;
     private List<Room> rooms = null;
 
 }

@@ -19,7 +19,7 @@ import lombok.Setter;
 @JsonInclude(Include.NON_NULL)
 public class PriceDetail {
 
-    private Integer pricePerDayAdult;
-    private Integer pricePerDayChild;
+    private Integer adult;
+    private Integer child;
 
 }
