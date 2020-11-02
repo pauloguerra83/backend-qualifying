@@ -1,6 +1,7 @@
 package com.backend.qualifyng.backendqualifyng.integration;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -10,6 +11,8 @@ import com.backend.qualifyng.backendqualifyng.configurations.RestConfiguration;
 import com.backend.qualifyng.backendqualifyng.responses.Hotel;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -43,33 +46,21 @@ public class HotelIntegration {
 
         System.out.println(LocalDateTime.now() + " execucao chamada cidade " + idCity);
 
-        ResponseEntity<List<Hotel>> response = restTemplate.exchange(mountUrlHotelsByCity(), 
-                HttpMethod.GET, null,
+        ResponseEntity<List<Hotel>> response = restTemplate.exchange(mountUrlHotelsByCity(), HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<Hotel>>() {
                 }, idCity);
 
         return CompletableFuture.completedFuture(response.getBody());
 
     }
-  
 
-    public List<Hotel> getHotels(List<String> cityList) {
+    public List<Hotel> getHotels(List<String> cityList) throws InterruptedException, ExecutionException {
 
-        CompletableFuture<List<Hotel>> hotelsByRJ = getHotelsByCity(cityList.get(0));
-        CompletableFuture<List<Hotel>> hotelsByBA = getHotelsByCity(cityList.get(1));
-        CompletableFuture<List<Hotel>> hotelsBySP = getHotelsByCity(cityList.get(2));
-        List<Hotel> hotelsByCity = null;
-        try {
-            
-            hotelsByCity = hotelsByRJ.get().stream().collect(Collectors.toList());
+        List<Hotel> hotelsByCity = new ArrayList<>();
 
-            hotelsByCity.addAll(hotelsByBA.get().stream().collect(Collectors.toList()));
-
-            hotelsByCity.addAll(hotelsBySP.get().stream().collect(Collectors.toList()));
-
-
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+        for (String cityId : cityList) {
+            CompletableFuture<List<Hotel>> hotels = getHotelsByCity(cityId);
+            hotelsByCity.addAll(hotels.get().stream().collect(Collectors.toList()));
         }
 
         return hotelsByCity;
@@ -78,14 +69,12 @@ public class HotelIntegration {
 
     private String mountUrlHotelsByCity() {
         String urlHotels = new StringBuilder().append(restConfiguration.getUrlHotels())
-                            .append(restConfiguration.getPathCity())
-                            .append("{idCity}").toString();
+                .append(restConfiguration.getPathCity()).append("{idCity}").toString();
         return urlHotels;
     }
 
     private String mountUrlHotelsById() {
-        String urlHotels = new StringBuilder().append(restConfiguration.getUrlHotels())
-                            .append("{hotelId}").toString();
+        String urlHotels = new StringBuilder().append(restConfiguration.getUrlHotels()).append("{hotelId}").toString();
         return urlHotels;
     }
 

@@ -29,8 +29,9 @@ public class DailyCalculationHelper {
 
     public void calculateTotalPrice(List<HotelDTO> hotels) {
         hotels.stream()
-        .forEach(h-> h.getRooms()
-        .forEach(r -> totalPrice(r, r.getPriceDetail())) );
+            .forEach(h-> h.getRooms()
+            .forEach(r -> totalPrice(r, r.getPriceDetail()))
+         );
     }
 
 
@@ -39,7 +40,7 @@ public class DailyCalculationHelper {
     }
 
     private PriceDetail multiplyDays(PriceDetail p, Integer qdtDays){
-        p.setAdult((p.getAdult() * qdtDays));
+        p.setAdult(p.getAdult() * qdtDays);
         p.setChild(p.getChild() * qdtDays);
         return p;
    }
