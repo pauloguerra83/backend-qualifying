@@ -1,11 +1,7 @@
-package com.backend.qualifyng.backendqualifyng.responses;
 
-import java.util.List;
+package com.backend.qualifyng.backendqualifyng.dtos;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.AllArgsConstructor;
@@ -22,13 +18,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonInclude(Include.NON_NULL)
-public class Hotel {
+public class RoomDTO {
 
     private Integer id;
-    private String name;
-    private String cityName;
-    private String cityCode;
-
-    private List<Room> rooms = null;
+    private CategoryDTO category;
+    private Integer totalPrice;
+    private PriceDetailDTO priceDetail;
 
 }

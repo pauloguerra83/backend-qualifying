@@ -6,12 +6,13 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.backend.qualifyng.backendqualifyng.dtos.HotelDTO;
+import com.backend.qualifyng.backendqualifyng.integration.HotelIntegration;
 import com.backend.qualifyng.backendqualifyng.responses.Hotel;
-import com.backend.qualifyng.backendqualifyng.services.HotelClient;
+import com.backend.qualifyng.backendqualifyng.services.HotelService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,35 +26,41 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated 
 public class HotelResource {
 
-    private HotelClient hotelClient;
+    private HotelService hotelService;
 
-    @Autowired
-    public HotelResource(HotelClient hotelClient){
-        this.hotelClient = hotelClient;
+    public HotelResource(HotelService hotelService){
+        this.hotelService = hotelService;
     }
 
     @GetMapping("/hotels/{hotelID}")
-    public ResponseEntity<List<Hotel>> getHotel(@PathVariable(name = "hotelID") Integer hotelID,
-                                                @RequestParam(required = true) @NotNull List<String> cityId,
-                                                @RequestParam(required = true) @DateTimeFormat(pattern = "dd/MM/yyyy") @NotNull LocalDate checkInDate, 
-                                                @RequestParam(required = true) @DateTimeFormat(pattern = "dd/MM/yyyy") @NotNull LocalDate checkOutDate,
-                                                @RequestParam(required = true) @NotBlank String numberOfAdults,
-                                                @RequestParam(required = true) @NotBlank String numberOfChildren) {
+    public ResponseEntity<List<HotelDTO>> getHotel( @PathVariable(name = "hotelID") Integer hotelID,
+                                                    @RequestParam(required = true) @DateTimeFormat(pattern = "dd/MM/yyyy") @NotNull LocalDate checkInDate,
+                                                    @RequestParam(required = true) @DateTimeFormat(pattern = "dd/MM/yyyy") @NotNull LocalDate checkOutDate,
+                                                    @RequestParam(required = true) @NotBlank String numberOfAdults,
+                                                    @RequestParam(required = true) @NotBlank String numberOfChildren) {
 
-        ResponseEntity<List<Hotel>> response = hotelClient.getHotel(hotelID.toString());
+        List<HotelDTO> hotels = hotelService.getHotel(hotelID.toString(),
+                                                                     checkInDate,
+                                                                     checkOutDate,
+                                                                     numberOfChildren,
+                                                                     numberOfChildren);
 
-        return ResponseEntity.ok().body(response.getBody());
+        return ResponseEntity.ok().body(hotels);
 
     }
 
     @GetMapping("/hotels")
-    public ResponseEntity<List<Hotel>> getHotels(@RequestParam(required = true) @NotNull List<String> cityId,
+    public ResponseEntity<List<HotelDTO>> getHotels(@RequestParam(required = true) @NotNull List<String> cityId,
                                                  @RequestParam(required = true) @DateTimeFormat(pattern = "dd/MM/yyyy") @NotNull LocalDate checkInDate, 
                                                  @RequestParam(required = true) @DateTimeFormat(pattern = "dd/MM/yyyy") @NotNull LocalDate checkOutDate,
                                                  @RequestParam(required = true) @NotBlank String numberOfAdults,
                                                  @RequestParam(required = true) @NotBlank String numberOfChildren) {
 
-        List<Hotel> response = hotelClient.getHotels(cityId);
+        List<HotelDTO> response = hotelService.getHotels(cityId,
+                                                         checkInDate,
+                                                         checkOutDate,
+                                                         numberOfChildren,
+                                                         numberOfChildren);
 
         return ResponseEntity.ok().body(response);
 

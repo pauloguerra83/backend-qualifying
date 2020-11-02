@@ -1,0 +1,3 @@
+client:
+    url-hotels: "https://cvcbackendhotel.herokuapp.com/hotels/"
+    path-city: "/avail/"
