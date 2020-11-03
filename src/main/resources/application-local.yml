@@ -1,0 +1,8 @@
+client:
+    url-hotels: "https://cvcbackendhotel.herokuapp.com/hotels/"
+    path-city: "/avail/"
+    
+HotelResourceIntegrationTest:
+   protocol: "http://"
+   host: "localhost"
+   port: ${server.port}

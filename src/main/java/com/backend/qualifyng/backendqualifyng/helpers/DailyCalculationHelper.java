@@ -11,8 +11,10 @@ import com.backend.qualifyng.backendqualifyng.responses.Hotel;
 import com.backend.qualifyng.backendqualifyng.responses.PriceDetail;
 import com.backend.qualifyng.backendqualifyng.responses.Room;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class DailyCalculationHelper {
 
@@ -21,7 +23,7 @@ public class DailyCalculationHelper {
 
         int calcDays = Period.between(checkInDate, checkOutDate).getDays();
 
-        System.out.println("Total dias " + calcDays);
+        log.info("Total dias {} ", calcDays);
 
         hotels.stream().forEach(h-> calculateRooms(h.getRooms(), calcDays));
     }
