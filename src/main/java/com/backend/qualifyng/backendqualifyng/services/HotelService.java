@@ -52,16 +52,14 @@ public class HotelService {
 
     private List<HotelDTO> convertList(List<Hotel> hotels) {
 
-        List<Hotel> hotelList = Optional.ofNullable(hotels).orElseThrow(NullPointerException::new);
-
-        return hotelMapper.toDtoList(hotelList);
+        return hotelMapper.toDtoList(hotels);
 
     }
 
     public List<HotelDTO> getHotels(List<String> cityList, LocalDate checkInDate, LocalDate checkOutDate,
             String numberOfAdults, String numberOfChildren) throws InterruptedException, ExecutionException {
 
-        List<Hotel> hotels = hotelIntegration.getHotels(cityList);
+        List<Hotel> hotels = getHotelsCaacheable(cityList);
 
         return calcAndConvertObject(checkInDate, checkOutDate, hotels);
 

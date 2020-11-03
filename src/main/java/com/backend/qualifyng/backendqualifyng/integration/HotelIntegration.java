@@ -3,16 +3,16 @@ package com.backend.qualifyng.backendqualifyng.integration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 import com.backend.qualifyng.backendqualifyng.configurations.RestConfiguration;
+import com.backend.qualifyng.backendqualifyng.exceptions.ResourceNotFoundException;
 import com.backend.qualifyng.backendqualifyng.responses.Hotel;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -35,10 +35,15 @@ public class HotelIntegration {
 
     public ResponseEntity<List<Hotel>> getHotel(String hotelId) {
 
-        return restTemplate.exchange(mountUrlHotelsById(), HttpMethod.GET, null,
+        ResponseEntity<List<Hotel>> hotels =  restTemplate.exchange(mountUrlHotelsById(), HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<Hotel>>() {
                 }, hotelId);
 
+        if (hotels.getBody().isEmpty()){
+            throw new ResourceNotFoundException();
+        }
+        
+        return hotels;
     }
 
     @Async

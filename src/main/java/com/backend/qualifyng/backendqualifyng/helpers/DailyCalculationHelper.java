@@ -40,8 +40,13 @@ public class DailyCalculationHelper {
     }
 
     private PriceDetail multiplyDays(PriceDetail p, Integer qdtDays){
-        p.setAdult(p.getAdult() * qdtDays);
-        p.setChild(p.getChild() * qdtDays);
+
+        int adultPrice = (p.getAdult() * qdtDays);
+        int childPrice = (p.getChild() * qdtDays);
+
+        p.setAdult(adultPrice + Double.valueOf((adultPrice) * 0.07).intValue());
+        p.setChild(childPrice + Double.valueOf((childPrice) * 0.07).intValue());
+        
         return p;
    }
 
