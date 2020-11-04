@@ -1,0 +1,160 @@
+{
+	"info": {
+		"_postman_id": "b8209d07-8d1d-4040-b33e-0298a90a5244",
+		"name": "backend-qualifyng-cvc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://cvcbackendhotel.herokuapp.com/hotels/avail/1032",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://cvcbackendhotel.herokuapp.com/hotels/avail/1032",
+					"protocol": "https",
+					"host": [
+						"cvcbackendhotel",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"hotels",
+						"avail",
+						"1032"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://cvcbackendhotel.herokuapp.com/hotels/4",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://cvcbackendhotel.herokuapp.com/hotels/4",
+					"protocol": "https",
+					"host": [
+						"cvcbackendhotel",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"hotels",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/actuator",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/actuator",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/hotels?cityId=1032,7110,9626&checkInDate=10/10/2020&checkOutDate=15/10/2020&numberOfAdults=2&numberOfChildren=1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/hotels?cityId=9626,7110,1032&checkInDate=10/10/2020&checkOutDate=15/10/2020&numberOfAdults=2&numberOfChildren=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"hotels"
+					],
+					"query": [
+						{
+							"key": "cityId",
+							"value": "9626,7110,1032"
+						},
+						{
+							"key": "checkInDate",
+							"value": "10/10/2020"
+						},
+						{
+							"key": "checkOutDate",
+							"value": "15/10/2020"
+						},
+						{
+							"key": "numberOfAdults",
+							"value": "2"
+						},
+						{
+							"key": "numberOfChildren",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/v1/hotels/1?cityId=7110,1032&checkInDate=10/10/2019&checkOutDate=11/10/2020&numberOfAdults=2&numberOfChildren=1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/hotels/244?checkInDate=10/10/2020&checkOutDate=14/10/2020&numberOfAdults=2&numberOfChildren=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"hotels",
+						"244"
+					],
+					"query": [
+						{
+							"key": "cityId",
+							"value": "1032,7110,9626",
+							"disabled": true
+						},
+						{
+							"key": "checkInDate",
+							"value": "10/10/2020"
+						},
+						{
+							"key": "checkOutDate",
+							"value": "14/10/2020"
+						},
+						{
+							"key": "numberOfAdults",
+							"value": "2"
+						},
+						{
+							"key": "numberOfChildren",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
