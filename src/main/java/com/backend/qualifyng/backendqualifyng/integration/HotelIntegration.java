@@ -3,7 +3,6 @@ package com.backend.qualifyng.backendqualifyng.integration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
@@ -20,6 +19,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class HotelIntegration {
 
@@ -49,7 +51,7 @@ public class HotelIntegration {
     @Async
     private CompletableFuture<List<Hotel>> getHotelsByCity(String idCity) {
 
-        System.out.println(LocalDateTime.now() + " execucao chamada cidade " + idCity);
+        log.info(" execucao chamada cidade {} ", LocalDateTime.now());
 
         ResponseEntity<List<Hotel>> response = restTemplate.exchange(mountUrlHotelsByCity(), HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<Hotel>>() {

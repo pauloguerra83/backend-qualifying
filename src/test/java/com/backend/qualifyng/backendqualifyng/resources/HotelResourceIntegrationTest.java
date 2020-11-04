@@ -1,11 +1,14 @@
 package com.backend.qualifyng.backendqualifyng.resources;
 
+import static io.restassured.RestAssured.given;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import com.backend.qualifyng.backendqualifyng.BackendQualifyngApplication;
-import io.restassured.RestAssured;
-import lombok.extern.slf4j.Slf4j;
+
 import org.apache.http.entity.ContentType;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +21,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static io.restassured.RestAssured.given;
+import io.restassured.RestAssured;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @ActiveProfiles("local")
@@ -53,7 +54,6 @@ public class HotelResourceIntegrationTest {
 
 
 
-	@Order(1)
 	@Test
 	public void expectHotels200() {
 
@@ -86,7 +86,6 @@ public class HotelResourceIntegrationTest {
 				.assertThat().statusCode(HttpStatus.OK.value());
 	}
 
-	@Order(1)
 	@Test
 	public void expectHotelsById200() {
 
@@ -119,7 +118,6 @@ public class HotelResourceIntegrationTest {
 				.assertThat().statusCode(HttpStatus.OK.value());
 	}
 
-	@Order(2)
 	@Test
 	public void expectHotelsById404() {
 

@@ -1,3 +1,23 @@
 client:
     url-hotels: "https://cvcbackendhotel.herokuapp.com/hotels/"
     path-city: "/avail/"
+management:
+    endpoints:
+        web:
+            exposure:
+                include: '*'
+    metrics:
+        export:
+            prometheus:
+                enabled: true
+    endpoint:
+        metrics:
+            enabled: false
+        prometheus:
+            enabled: true
+
+spring:
+    cache:
+        jcache:
+            config:
+                classpath:ehcache.xml

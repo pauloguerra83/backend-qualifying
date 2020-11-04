@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.HttpServerErrorException.InternalServerError;
 
 @ControllerAdvice
 public class CustomExceptionHandler {
@@ -33,6 +35,20 @@ public class CustomExceptionHandler {
         return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.NOT_FOUND);
 
     }
+
+    @ExceptionHandler({InternalServerError.class, ResourceAccessException.class})
+    public ResponseEntity<ErrorResponse> internalErrorException(HttpServletResponse response) throws IOException {
+       
+        ErrorResponse errorResponse = ErrorResponse.builder().message("Erro interno ao processar a requisição!")
+                .statusDesc(HttpStatus.INTERNAL_SERVER_ERROR.name()).build();
+
+        return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+
+
+
+    
 
     
     private ErrorResponse getErrorResponse() {

@@ -28,7 +28,7 @@ public class DailyCalculationHelper {
         hotels.stream().forEach(h-> calculateRooms(h.getRooms(), calcDays));
     }
 
-
+   
     public void calculateTotalPrice(List<HotelDTO> hotels) {
         hotels.stream()
             .forEach(h-> h.getRooms()
@@ -37,8 +37,16 @@ public class DailyCalculationHelper {
     }
 
 
+    public void calculateTotalPrice(HotelDTO hotel) {
+        hotel.getRooms()
+                .forEach(r->  totalPrice(r, r.getPriceDetail())
+                );
+    }
+
+
+
     private void calculateRooms(List<Room> rooms, Integer qdtDays){
-         rooms.stream().map(p -> multiplyDays(p.getPrice(), qdtDays) ).forEach(System.out::println);
+         rooms.stream().map(p -> multiplyDays(p.getPrice(), qdtDays) );
     }
 
     private PriceDetail multiplyDays(PriceDetail p, Integer qdtDays){
